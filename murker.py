@@ -244,6 +244,15 @@ orc = Entity(
     Actor(BerserkAI()),
 )
 
+troll = Entity(
+    Nameable("Troll"),
+    Position(Point(8)),
+    Attacker(0.35, 6),
+    Defender(0.05),
+    Destructible(20),
+    Actor(BerserkAI()),
+)
+
 print("Entities:")
 for e in Entity.all():
     print(f"* {e}")
