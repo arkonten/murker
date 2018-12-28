@@ -255,16 +255,16 @@ for e in Entity.all():
     print(f"* {e}")
 
 # Turn order "system"
-turn_order = list(Entity.all())
+turn_order = Entity.filter(Actor)
 random.shuffle(turn_order)
-while len([e for e in turn_order if e.get_component(Destructible).alive()]) > 1:
-    e, *rest = turn_order
-    print(f"\nTurn: {e}")
-    e.update(Turn())
-    rest = [e for e in rest if e.get_component(Destructible).alive()]
-    turn_order = rest + [e]
-
-living = [e for e in Entity.all() if e.get_component(Destructible).alive()]
-assert(len(living) == 1)
-print()
-print(f"The victor is {living[0]}!")
+while True:
+    entity = turn_order.pop(0)
+    print(f"\nTurn: {entity}")
+    entity.update(Turn())
+    for x in turn_order:
+        if not x.get_component(Actor):
+            turn_order.remove(x)
+    if len(turn_order) == 0:
+        print(f"\nThe victor is {entity}!")
+        exit()
+    turn_order.append(entity)
