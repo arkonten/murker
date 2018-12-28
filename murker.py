@@ -85,7 +85,7 @@ class Entity:
 
     @classmethod
     def all(cls):
-        return cls.entity_index.values()
+        return list(cls.entity_index.values())
 
     @classmethod
     def filter(cls, c):
