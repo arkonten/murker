@@ -78,7 +78,10 @@ class Entity:
                 return
 
     def get_component(self, component_type):
-         return next(c for c in self.components if type(c) == component_type)
+        try:
+            return next(c for c in self.components if type(c) == component_type)
+        except StopIteration:
+            return None
 
     @classmethod
     def all(cls):
