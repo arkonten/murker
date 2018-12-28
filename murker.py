@@ -178,6 +178,7 @@ class Attacker(Component):
         self.damage = damage
 
     def attack(self, target):
+        assert(abs(self.entity.get_component(Position).point.x - target.get_component(Position).point.x) == 1)
         print(f"{self.entity} attacks {target}")
         if chance(self.accuracy):
             target.update(Attack(self.damage))
