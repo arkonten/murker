@@ -163,14 +163,11 @@ class Destructible(Component):
         print(f"{self.entity} {verb} {abs(amount)} damage (hp: {self.hp}/{self.max_hp})")
         if not self.alive():
             print(f"{self.entity} died!")
+            self.entity.detach(Actor)
 
     def update(self, event):
         if type(event) == Attack:
             self.modify_hp(-event.damage)
-        elif type(event) == Turn:
-            if not self.alive():
-                print(f"{self.entity} is dead and cannot act")
-                return
         return event
 
 class Attacker(Component):
