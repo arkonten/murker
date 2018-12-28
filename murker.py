@@ -264,4 +264,5 @@ while len([e for e in turn_order if e.get_component(Destructible).alive()]) > 1:
     e, *rest = turn_order
     print(f"\nTurn: {e}")
     e.update(Turn())
+    rest = [e for e in rest if e.get_component(Destructible).alive()]
     turn_order = rest + [e]
