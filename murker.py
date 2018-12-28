@@ -231,32 +231,19 @@ class BerserkAI:
 # Example
 #########
 
-goblin = Entity(
-    Nameable("Goblin"),
-    Position(Point(0)),
-    Attacker(0.7, 2),
-    Defender(0.35),
-    Destructible(10),
-    Actor(BerserkAI()),
-)
-
-orc = Entity(
-    Nameable("Orc"),
-    Position(Point(5)),
-    Attacker(0.8, 3),
-    Defender(0.2),
-    Destructible(14),
-    Actor(BerserkAI()),
-)
-
-troll = Entity(
-    Nameable("Troll"),
-    Position(Point(8)),
-    Attacker(0.35, 6),
-    Defender(0.05),
-    Destructible(20),
-    Actor(BerserkAI()),
-)
+try:
+    nr_goblins = int(sys.argv[1])
+except IndexError:
+    nr_goblins = 10
+for i in range(nr_goblins):
+    Entity(
+        Nameable("Goblin"),
+        Position(Point(3*i)),
+        Attacker(0.7, 2),
+        Defender(0.35),
+        Destructible(10),
+        Actor(BerserkAI()),
+    )
 
 print("Entities:")
 for e in Entity.all():
