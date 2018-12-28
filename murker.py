@@ -271,3 +271,8 @@ while len([e for e in turn_order if e.get_component(Destructible).alive()]) > 1:
     e.update(Turn())
     rest = [e for e in rest if e.get_component(Destructible).alive()]
     turn_order = rest + [e]
+
+living = [e for e in Entity.all() if e.get_component(Destructible).alive()]
+assert(len(living) == 1)
+print()
+print(f"The victor is {living[0]}!")
