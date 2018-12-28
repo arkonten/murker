@@ -109,10 +109,6 @@ class Move(Event):
     def __init__(self, destination):
         self.destination = destination
 
-class InitAttack(Event):
-    def __init__(self, target):
-        self.target = target
-
 class Attack(Event):
     def __init__(self, damage):
         self.damage = damage
