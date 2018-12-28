@@ -59,6 +59,14 @@ class Entity:
             self.__class__.component_index[type(component)] = []
         self.__class__.component_index[type(component)].append(self)
 
+    def detach(self, component_type):
+        for c in self.components:
+            if isinstance(c, component_type):
+                c.set_owner(None)
+                self.components.remove(c)
+                self.__class__.component_index[component_type].remove(self)
+                return
+
     def update(self, event):
         tmp = event
         for c in self.components:
