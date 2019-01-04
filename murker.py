@@ -212,19 +212,23 @@ class Actor(Component):
 
 # Simple Actor controller
 class BerserkAI:
+    def __init__(self):
+        self.target = None
+
     def act(self, me):
-        enemies = [x for x in Entity.filter(Actor) if x != me and x.get_component(Destructible).alive()]
-        if len(enemies) == 0:
-            print(f"{me} sees no enemy")
-            return
         my_pos = me.get_component(Position).point
-        def closeness(e):
-            return abs(e.get_component(Position).point.x - my_pos.x)
-        closest_enemy = min(enemies, key=closeness)
-        diff = closest_enemy.get_component(Position).point.x - my_pos.x
+        if not self.target or not self.target.get_component(Destructible).alive():
+            enemies = [x for x in Entity.filter(Actor) if x != me and x.get_component(Destructible).alive()]
+            if len(enemies) == 0:
+                print(f"{me} sees no enemy")
+                return
+            def closeness(e):
+                return abs(e.get_component(Position).point.x - my_pos.x)
+            self.target = min(enemies, key=closeness)
+        diff = self.target.get_component(Position).point.x - my_pos.x
         assert(diff != 0)
         if abs(diff) == 1:
-            me.get_component(Attacker).attack(closest_enemy)
+            me.get_component(Attacker).attack(self.target)
         else:
             destination = my_pos.x + sign(diff)
             me.update(Move(Point(destination)))
