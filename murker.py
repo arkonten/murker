@@ -260,11 +260,10 @@ turn_order = Entity.filter(Actor)
 random.shuffle(turn_order)
 while True:
     entity = turn_order.pop(0)
+    if not entity.get_component(Actor):
+        continue
     print(f"\nTurn: {entity}")
     entity.update(Turn())
-    for x in turn_order:
-        if not x.get_component(Actor):
-            turn_order.remove(x)
     if len(turn_order) == 0:
         print(f"\nThe victor is {entity}!")
         exit()
